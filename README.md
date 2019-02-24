@@ -14,7 +14,7 @@
 
   * Front-End
     * React
-        * MVC
+        * I'm using Pure - https://purecss.io/start/
 
 ##API
 * https://swapi.co/
