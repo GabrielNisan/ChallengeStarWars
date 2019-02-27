@@ -8,15 +8,19 @@ export default class PlanetsBox extends Component {
         this.state = { list: [] };
     };
 
-    componenDidMount() {
+    componentDidMount() {
+        var id = Math.floor(Math.random() * 61 + 1);
+        var apiUrl = "https://swapi.co/api/planets/" + id;
+
         $.ajax({
-            url: "https://swapi.co/api/planets/1",
+            url: apiUrl,
             dataType: 'json',
+            type: 'get',
             success: function (response) {
+                console.log(this);
                 this.setState({ list: response });
             }.bind(this)
-        }
-        );
+        });
     };
 
     render() {
@@ -27,41 +31,42 @@ export default class PlanetsBox extends Component {
                     <h1>Planets</h1>
                 </div>
 
-                <div className="content" id="content">
+                <div className="content" id="content" align="center">
+
+                    <br></br>
+
                     <table className="pure-table">
 
 
                         <thead>
-                            {
-                                this.state.list.map(function (planet) {
-                                    return (
-                                        <tr>
-                                            <th>Planet: {planet.name}</th>
-                                        </tr>
-                                    );
-                                })
-                            }
+                            <tr>
+                                <th align="center">Planet: {this.state.list.name}</th>
+                            </tr>
                         </thead>
 
                         <tbody>
-                            {
-                                this.state.list.map(function (planet) {
-                                    return (
-                                        <tr>
-                                            <td>Population: {planet.population}</td>
-                                            <td>Climate: {planet.climate}</td>
-                                            <td>Terrain: {planet.terrain}</td>
-                                            <td>Films: {planet.films}</td>
-                                        </tr>
-                                    );
-                                })
-                            }
-
+                            <tr>
+                                <td>Population: {this.state.list.population}</td>
+                            </tr>
+                            <tr>
+                                <td>Climate: {this.state.list.climate}</td>
+                            </tr>
+                            <tr>
+                                <td>Terrain: {this.state.list.terrain}</td>
+                            </tr>
+                            <tr align="center">
+                                <td>Featured in {this.state.list.films !== null && this.state.list.films !== undefined ? this.state.list.films.length : 'none'} Film(s)!!!</td>
+                            </tr>
                         </tbody>
 
-                        <button type="submit" className="pure-button pure-button-primary" onSubmit={this.componenDidMount} method="get">Next Planet</button>
-
                     </table>
+
+                    <br></br>
+
+                    <div className="pure-control-group">
+                        <button type="button" className="pure-button pure-button-primary" onClick={this.componentDidMount.bind(this)}>Next Planet</button>
+                    </div>
+
                 </div>
 
             </div>
